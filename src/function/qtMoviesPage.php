@@ -1,5 +1,5 @@
 <?php
-include("MovieController.php");
+require('../controller/'.'MovieController.php');
 
 $controller = new MovieController();
 

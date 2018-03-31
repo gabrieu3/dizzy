@@ -1,6 +1,6 @@
 <?php
 
-include("MovieDao.php");
+require('../dao/'.'MovieDao.php');
 
 Class MovieController{
 

@@ -1,6 +1,8 @@
 <?php
-include("MovieDto.php");
-include("db.php");
+
+require('../dto/'.'MovieDto.php');
+require('../util/'.'db.php');
+
 
 Class MovieDao{
 

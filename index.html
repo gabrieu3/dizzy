@@ -6,22 +6,23 @@
 
 
 
-<link rel="stylesheet" type="text/css"  href="stylezin.css">
+<link rel="stylesheet" type="text/css"  href="./css/stylezin.css">
 
 
 </head>
 <body>
 <div class="display-content"></div>
-<div class="page-load-status">
-  <p class="infinite-scroll-request">Loading...</p>
-  <p class="infinite-scroll-last">End of content</p>
-  <p class="infinite-scroll-error">No more pages to load</p>
-</div>
 
+<p id="loading">
+	<img src="img/loading.gif" alt="Loading…" />
+</p>
+<p id="loading">
+	No more data!
+</p>
 
-<script src="./js/jquery.js" type="text/javascript"></script>
+<script src="./js/jquery.js"></script>
 <script src="./js/infinite-scroll.js"></script>
-<script type="text/javascript" src="scriptzin.js"></script>
+<script src="./js/scriptzin.js"></script>
 <script>
 init();
 // callEventScroll();

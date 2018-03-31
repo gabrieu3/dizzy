@@ -1,5 +1,5 @@
 <?php
-include("MovieController.php");
+require('../controller/'.'MovieController.php');
 
 $pagination = (isset($_GET['pagination']))   ? $_GET['pagination']   : 0;
 
