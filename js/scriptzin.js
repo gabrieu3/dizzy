@@ -18,7 +18,7 @@ function loadDoc(pagination) {
 			url: urlPagination,
 			dataType: 'html',
 			success: function(html) {
-				$('.display-content').append(html);
+				$('.row').append(html);
 				$('#loading').hide();
 				if (html.length == 0){
 					$('#info').show();
@@ -30,6 +30,8 @@ function loadDoc(pagination) {
 		 },
 		});
 
+		$('#log').append("urlPagination " + urlPagination + "<br>");
+    $('#info').show();
 }
 
 /**
@@ -57,19 +59,28 @@ $(document).ready(function() {
 
 	// Each time the user scrolls
 	win.scroll(function() {
-
+		var a = $(document).height();
+		var b = window.innerHeight;
+		var c = win.scrollTop();
 		// End of the document reached?
-		if ($(document).height() - win.height() <= win.scrollTop() + 1) {
+		if ($(document).height() - window.innerHeight <= win.scrollTop() + 10) {
 
 			pageNumber =  pageNumber + 1 ;
 
 			if( pageNumber <= qtdeMax ){
 				$('#loading').show();
+				loadDoc(pageNumber);
+				$('#log').append("$(document).height() " + a + "<br>");
+$('#log').append("window.innerHeight " +b + "<br>");
+$('#log').append("win.scrollTop() " + c + "<br>");
+$('#log').append("pageNumber " + pageNumber + "<br>");
+$('#log').append("$(document).height() - window.innerHeight <= win.scrollTop() + 10 -----> " + (a - b) + "<=" + (c + 10 ) + "<br><br><br>");
+
 			}else {
 					pageNumber = qtdeMax + 1; //Always last page more one.
 			}
 
-			loadDoc(pageNumber);
+
 		}
 	});
 });

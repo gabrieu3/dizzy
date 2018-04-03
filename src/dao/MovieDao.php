@@ -21,7 +21,7 @@ Class MovieDao{
 	public function getMovies($pagination){
 
 		$pagination = ($pagination == 1 or $pagination == 0) ? 0 : $pagination - 1;
-		$sql = "select * from (SELECT cast(cod as decimal) cod, title, type, star FROM movie order by cast(cod as decimal)) x LIMIT ".($pagination * 10).", 10 " ;
+		$sql = "select * from (SELECT cod, title, type, star FROM movie order by cod) x LIMIT ".($pagination * 12).", 12 " ;
 		$this->movieList = $this->conn->query($sql);
 		return $this->movieList;
 

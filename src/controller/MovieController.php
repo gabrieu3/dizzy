@@ -19,6 +19,7 @@ Class MovieController{
 	    $fig = (int) str_pad('1', $precision, '0');
 	    return (ceil($number * $fig) / $fig);
 	}
+
 	public function getMovies($pagination){
 		return $this->dao->getMovies($pagination);
 	}
@@ -32,7 +33,7 @@ Class MovieController{
 	}
 
 	public function getQtPages(){
-		return $this->round_up($this->getQtMovies() / 10,0);
+		return $this->round_up($this->getQtMovies() / 12,0);
 	}
 
 

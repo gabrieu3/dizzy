@@ -1,7 +1,7 @@
 drop table movie;
 create table movie
 (
-cod varchar(10) primary key,
+cod decimal primary key,
 title varchar(25),
 type varchar(10),
 star varchar(25)
