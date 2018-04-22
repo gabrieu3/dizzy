@@ -36,5 +36,13 @@ Class MovieController{
 		return $this->round_up($this->getQtMovies() / 12,0);
 	}
 
+	public function insertMovie($movie){
+		$this->dao->insertMovie($movie);
+	}
+
+	public function getImage($cod){
+		return $this->dao->getImage($cod);
+	}
+
 
 }

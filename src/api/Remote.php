@@ -54,32 +54,36 @@ class Remote{
   		}
   		else{
   			// Decode the JSON response
-
-
-
         libxml_use_internal_errors(true);
-
-    // if you have not escaped entities use
-
-    $string = mb_convert_encoding($json, 'html-entities', mb_detect_encoding($json));
-    $dom = new DOMDocument('1.0', 'UTF-8');
-
-
-    $dom->loadHTML('<?xml encoding="utf-8"?>' .$string);
-    $dom->encoding = 'utf-8';
-    $node = $dom->getElementsByTagName('div')->item(11);
-    $outerHTML = $node->ownerDocument->saveHTML($node);
-    $innerHTML = '';
-    foreach ($node->childNodes as $childNode){
-        echo $childNode->ownerDocument->saveHTML($childNode);
-    }
-    //echo '<h2>outerHTML: </h2>';
-    //echo htmlspecialchars($outerHTML);
-    //echo '<h2>innerHTML: </h2>';
-    //echo htmlspecialchars($innerHTML);
-    //echo $innerHTML;
-  		}
-      //echo $data;
-  		return 1;
+      }
+  		return $json;
   	}
+
+    function element_to_obj($element) {
+        $obj = array( "tag" => $element->tagName );
+        foreach ($element->attributes as $attribute) {
+            $obj[$attribute->name] = $attribute->value;
+        }
+        foreach ($element->childNodes as $subElement) {
+            if ($subElement->nodeType == XML_TEXT_NODE) {
+                $obj["html"] = $subElement->wholeText;
+            }
+            else {
+                $obj["children"][] = $this->element_to_obj($subElement);
+            }
+        }
+        return $obj;
+    }
+
+    function html_to_obj($html) {
+        $dom = new DOMDocument();
+        $html = mb_convert_encoding($html, 'html-entities', mb_detect_encoding($html));
+        $dom->loadHTML($html);
+        $node = $dom->getElementsByTagName('div')->item(11);
+        //$outerHTML = $node->ownerDocument->saveHTML($node);
+        return $this->element_to_obj($node);
+    }
+
+
+
 }
