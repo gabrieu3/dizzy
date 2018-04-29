@@ -9,6 +9,7 @@ Class MovieDto{
 	private $link;
 	private $image;
 	private $src;
+	private $view;
 
 	public function __construct(){
 		$this->title = '';
@@ -16,6 +17,7 @@ Class MovieDto{
 		$this->star  = '';
 		$this->link  = '';
 		$this->src   = '';
+		$this->view  = 0;
 	}
 
 	/*public function __construct($cod, $title, $type, $star, $link, $image, $src){
@@ -56,6 +58,10 @@ Class MovieDto{
 		return $this->src;
 	}
 
+	public function getView(){
+		return $this->view;
+	}
+
 	public function setCod($cod){
 		 $this->cod = $cod;
 	}
@@ -82,6 +88,10 @@ Class MovieDto{
 
 	public function setSrc($src){
 		 $this->src = $src;
+	}
+
+	public function setView($view){
+		 $this->view = $view;
 	}
 
 }

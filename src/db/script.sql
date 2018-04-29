@@ -6,9 +6,10 @@ title varchar(200),
 type varchar(100),
 star varchar(25),
 link varchar(1000),
-image BLOB,
+image LONGBLOB,
 src varchar(200),
 time  date,
+view BIGINT,
 PRIMARY KEY (cod)
 );
 

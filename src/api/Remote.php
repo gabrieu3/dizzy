@@ -1,6 +1,36 @@
 <?php
 class Remote{
 
+  private $anonymiser = 'http://anonymouse.org/cgi-bin/anon-www.cgi/';	// URL that will be prepended to the generated API URL.
+  private $anonimous = false;
+  private $params = array(
+						'api'		=> 'v1',
+						'appid'		=> 'iphone1_1',
+						'apiPolicy'	=> 'app1_1',
+						'apiKey'	=> '2wex6aeu6a8q9e49k7sfvufd6rhh0n',
+						'locale'	=> 'en_US',
+						'timestamp'	=> '0',
+					  );
+
+  // Build URL based on the given parameters
+	function build_url($baseurl){
+
+		// Build the URL and append query if we have one
+		$unsignedUrl = $baseurl;
+
+		// Generate a signature and append to unsignedUrl to sign it.
+    if ($this->anonimous){
+      $sig = hash_hmac('sha1', $unsignedUrl, $this->params['apiKey']);
+  		$signedUrl = $unsignedUrl;
+  		// Anonymise the request?
+  		$signedUrl = $this->anonymiser.$signedUrl;
+    }else{
+      $signedUrl = $baseurl;
+    }
+
+
+		return $signedUrl;
+	}
 
   function parse_the_result($requestURL){
   		$json = $this->fetchJSON($requestURL);
@@ -34,7 +64,8 @@ class Remote{
 
 
   function fetchJSON($apiUrl){
-  		$ch = curl_init($apiUrl);
+      $url = $this->build_url($apiUrl);
+  		$ch = curl_init($url);
   		$headers[] = 'Connection: Keep-Alive';
   		$headers[] = 'Content-type: text/plain;charset=UTF-8';
   		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -50,7 +81,8 @@ class Remote{
 
   		// Errors?
   		if ($curl_errno > 0){
-  			$data->error->message = 'cURL Error '.$curl_errno.': '.$curl_error;
+        echo 'erro: '.$curl_errno;
+        //$data->error->message = 'cURL Error '.$curl_errno.': '.$curl_error;
   		}
   		else{
   			// Decode the JSON response
@@ -75,11 +107,31 @@ class Remote{
         return $obj;
     }
 
-    function html_to_obj($html) {
+    function html_to_obj($html, $link) {
         $dom = new DOMDocument();
         $html = mb_convert_encoding($html, 'html-entities', mb_detect_encoding($html));
         $dom->loadHTML($html);
-        $node = $dom->getElementsByTagName('div')->item(11);
+
+        $tdf = strpos($link, 'torrentdosfilmeshd');
+        $ftf = strpos($link, 'filmestorrentfull');
+        $cmt = strpos($link, 'comandotorrents');
+
+
+        if ($tdf > 0){
+          $pos = 11;
+        }else {
+          if ($ftf > 0){
+            $pos = 14;
+          }else{
+            if ($cmt > 0){
+              $pos = 4;
+            }else{
+              $pos = 1;
+            }
+          }
+        }
+        $node = $dom->getElementsByTagName('div')->item($pos);
+
         //$outerHTML = $node->ownerDocument->saveHTML($node);
         return $this->element_to_obj($node);
     }

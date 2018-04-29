@@ -7,13 +7,12 @@
     <meta name="author" content="">
     <link rel="icon" href="img/icon.png">
 
-      <title>Dizzy Crazy Stuffs</title>
+    <title>Dizzy Crazy Stuffs</title>
 
     <!-- Bootstrap core CSS -->
 		<link rel="stylesheet" type="text/css"  href="./css/stylezin.css">
 		<link rel="stylesheet" type="text/css"  href="./css/bootstrap.css">
-
-  </head>
+</head>
 
 <body>
 
@@ -22,11 +21,11 @@
 	   <div class="container">
 	      <div class="row">	 </div>
 				<p id="loading">
-					<img src="img/loading.gif" alt="Loading…" />
+					<img src="img/loading.gif" alt="Loading…" width="15%" style="margin-left: 40%;"/>
 				</p>
-				<p id="info">
-					No more data!
-				</p>
+        <div id="info" class="alert alert-info" role="alert" style="display:none;">
+          <p class="text-center">No more data!</p>
+        </div>
 		 </div>
    </div>
 </main>
@@ -35,9 +34,9 @@
 <script src="./js/popper.js"></script>
 <script src="./js/bootstrap.js"></script>
 <script src="./js/scriptzin.js"></script>
+
 <script>
-init();
-// callEventScroll();
+  init();
 </script>
 
 

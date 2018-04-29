@@ -8,6 +8,10 @@ var qtdeMax = 0;
 qtPages();
 var pageNumber		= 1;
 
+/**
+ * Function to paginate
+ *
+ */
 function loadDoc(pagination) {
 
 	  var url = 'src/view/list.php';
@@ -26,21 +30,26 @@ function loadDoc(pagination) {
 			},
 			error: function() {
 				$('#loading').hide();
-				$('#info').style.visibility = "visible";
+				$('#info').show();
 		 },
 		});
 
 		$('#log').append("urlPagination " + urlPagination + "<br>");
-    $('#info').show();
+    //$('#info').show();
 }
 
 /**
- * Function to initialize content
+ * Function to initialize content,
+ * load the first page
  */
 function init(){
 	loadDoc(0);
 }
 
+/**
+ * function to find the number of pages:
+ * $qtdeMax
+ */
 function qtPages() {
 		$.ajax({
 			url: 'src/function/qtMoviesPage.php',
@@ -52,11 +61,11 @@ function qtPages() {
 }
 
 
+/**
+ * When the DOM is ready do this...
+ */
 $(document).ready(function() {
 	var win = $(window);
-		$('#info').hide();
-
-
 	// Each time the user scrolls
 	win.scroll(function() {
 		var a = $(document).height();
@@ -70,17 +79,18 @@ $(document).ready(function() {
 			if( pageNumber <= qtdeMax ){
 				$('#loading').show();
 				loadDoc(pageNumber);
+				if (pageNumber == qtdeMax){
+					$('#info').show("slow");
+				}
 				$('#log').append("$(document).height() " + a + "<br>");
-$('#log').append("window.innerHeight " +b + "<br>");
-$('#log').append("win.scrollTop() " + c + "<br>");
-$('#log').append("pageNumber " + pageNumber + "<br>");
-$('#log').append("$(document).height() - window.innerHeight <= win.scrollTop() + 10 -----> " + (a - b) + "<=" + (c + 10 ) + "<br><br><br>");
+				$('#log').append("window.innerHeight " +b + "<br>");
+				$('#log').append("win.scrollTop() " + c + "<br>");
+				$('#log').append("pageNumber " + pageNumber + "<br>");
+				$('#log').append("$(document).height() - window.innerHeight <= win.scrollTop() + 10 -----> " + (a - b) + "<=" + (c + 10 ) + "<br><br><br>");
 
 			}else {
 					pageNumber = qtdeMax + 1; //Always last page more one.
 			}
-
-
 		}
 	});
 });

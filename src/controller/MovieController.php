@@ -44,5 +44,12 @@ Class MovieController{
 		return $this->dao->getImage($cod);
 	}
 
+	public function insertView($cod){
+    $this->dao->insertView($cod);
+	}
+
+	public function getView($cod){
+		return $this->dao->getView($cod);
+  }
 
 }
