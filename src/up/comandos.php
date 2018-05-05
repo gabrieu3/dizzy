@@ -48,11 +48,11 @@ foreach($json->children as $movie) { //foreach element in $arr
 
                       if (property_exists($movie4, "href")){
                         $movieObj->setLink($movie4->href);
-                        //echo $movie4->href.'</br>';
+                        echo $movie4->href.'</br>';
                       }
                       if (property_exists($movie4, "html")){
                         $movieObj->setTitle($movie4->html);
-                        //echo $movie4->html.'</br>';
+                        echo $movie4->html.'</br>';
                       }
                 }
               }
@@ -69,7 +69,7 @@ foreach($json->children as $movie) { //foreach element in $arr
                           if (property_exists($movie7, "src")) {
                             $movieObj->setType('Comandotorrents.com');
                             $movieObj->setSrc($movie7->src);
-                            //echo $movie7->src.'</br></br>';
+                            echo $movie7->src.'</br>';
                             $c->insertMovie($movieObj);
                           }}}}}}}}
 
@@ -78,7 +78,9 @@ foreach($json->children as $movie) { //foreach element in $arr
           //FIM PARTE 2
         }
       }
+
     }
+    echo '</br>';
   }
 }
 

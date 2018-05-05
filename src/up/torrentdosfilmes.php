@@ -41,12 +41,12 @@ foreach($json->children as $movie) { //foreach element in $arr
           //PARTE 1
           if (property_exists($movie3, "title")){
             $movieObj->setTitle($movie3->title);
-            //echo $movie3->title.'</br>';
+            echo $movie3->title.'</br>';
           }
 
           if (property_exists($movie3, "href")){
             $movieObj->setLink($movie3->href);
-            //echo $movie3->href.'</br>';
+            echo $movie3->href.'</br>';
           }
 
           //PARTE 2
@@ -62,7 +62,7 @@ foreach($json->children as $movie) { //foreach element in $arr
                   if (property_exists($movie5, "src")){
                     $movieObj->setSrc($movie5->src);
                     $movieObj->setType('Torrentdosfilmeshd.net');
-                    //echo $movie5->src.'</br></br>';
+                    echo $movie5->src.'</br></br>';
                     $c->insertMovie($movieObj);
                   }
 

@@ -22,8 +22,8 @@ while ($dados = $movieList->fetch_array()){
 										<input type="hidden" id="cod" name="cod" value="'. $dados['cod'] .'">
 										<button type="submit" class="btn btn-sm btn-outline-secondary">View '.$dados['view'].'</button>
 										<button type="button" onclick="window.location.href = \''.$controller->getSearchYoutube($dados['cod'],$dados['title']).' \' " class="btn btn-sm btn-outline-secondary">Trailer</button>
+										<button type="button" onclick="window.open(\''.$controller->getSearchImdb($dados['cod'],$dados['title']).'\',\'_blank\');" class="btn btn-sm btn-outline-secondary">Imdb</button>
 									</form>
-
 								</div>
 								<small class="text-muted">'. $dados['time'] . '</small>
 

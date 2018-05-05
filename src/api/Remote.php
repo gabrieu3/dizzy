@@ -118,7 +118,7 @@ class Remote{
 
 
         if ($tdf > 0){
-          $pos = 11;
+          $pos = 10;
         }else {
           if ($ftf > 0){
             $pos = 14;
@@ -130,6 +130,7 @@ class Remote{
             }
           }
         }
+
         $node = $dom->getElementsByTagName('div')->item($pos);
 
         //$outerHTML = $node->ownerDocument->saveHTML($node);
