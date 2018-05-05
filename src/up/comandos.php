@@ -14,9 +14,9 @@ $movieObj = new MovieDto();
 for ($x = $pages; $x >= 1; $x--) {
 
 if ($x >=2){
-  $apiUrl = "http://www.comandotorrents.com/category/filmes/page/".$x."/";
+  $apiUrl = "http://www.comandotorrents.com/page/".$x."/";
 }else {
-  $apiUrl = "http://www.comandotorrents.com/category/filmes/";
+  $apiUrl = "http://www.comandotorrents.com/";
 }
 
 

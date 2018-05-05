@@ -12,7 +12,6 @@ while ($dados = $movieList->fetch_array()){
 						<img class="card-img-top" alt="Celular" style="height: 400px; width: 100%; display: block;" src="src/view/image.php?cod='.$dados['cod'].'" data-holder-rendered="true">
 						<div class="card-body">
 							<p class="card-text">
-										<b>Cod: '  . $dados['cod']  . '</b></br>
 									'. $dados['title'] .' </br>
 									<small class="text-muted">'. $dados['type'] . '</small>
 							</p>
@@ -22,7 +21,9 @@ while ($dados = $movieList->fetch_array()){
 									  <input type="hidden" id="link" name="link" value="'. $dados['link'] .'">
 										<input type="hidden" id="cod" name="cod" value="'. $dados['cod'] .'">
 										<button type="submit" class="btn btn-sm btn-outline-secondary">View '.$dados['view'].'</button>
+										<button type="button" onclick="window.location.href = \''.$controller->getSearchYoutube($dados['cod'],$dados['title']).' \' " class="btn btn-sm btn-outline-secondary">Trailer</button>
 									</form>
+
 								</div>
 								<small class="text-muted">'. $dados['time'] . '</small>
 
