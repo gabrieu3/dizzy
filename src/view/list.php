@@ -1,10 +1,11 @@
 <?php
 require('../controller/'.'MovieController.php');
 
-$pagination = (isset($_GET['pagination']))   ? $_GET['pagination']   : 0;
+$pagination = (isset($_GET['pagination']))   ? $_GET['pagination']   : 0 ;
+$search 	  = (isset($_GET['search']))   	   ? $_GET['search']   	   : "";
 
 $controller = new MovieController();
-$movieList = $controller->getMovies($pagination);
+$movieList = $controller->getMovies($pagination, $search);
 
 while ($dados = $movieList->fetch_array()){
 	echo '<div class="col-md-4">
@@ -20,9 +21,9 @@ while ($dados = $movieList->fetch_array()){
 									<form action="src/view/view.php" method="post">
 									  <input type="hidden" id="link" name="link" value="'. $dados['link'] .'">
 										<input type="hidden" id="cod" name="cod" value="'. $dados['cod'] .'">
-										<button type="submit" class="btn btn-sm btn-outline-secondary">View '.$dados['view'].'</button>
-										<button type="button" onclick="window.location.href = \''.$controller->getSearchYoutube($dados['cod'],$dados['title']).' \' " class="btn btn-sm btn-outline-secondary">Trailer</button>
-										<button type="button" onclick="window.open(\''.$controller->getSearchImdb($dados['cod'],$dados['title']).'\',\'_blank\');" class="btn btn-sm btn-outline-secondary">Imdb</button>
+										<button type="submit" class="btn btn-default btn-sm btn-outline-secondary">View '.$dados['view'].'</button>
+										<button type="button" onclick="window.location.href = \''.$controller->getSearchYoutube($dados['cod'],$dados['title']).' \' " class="btn btn-default btn-sm btn-outline-secondary">Trailer</button>
+										<button type="button" onclick="window.open(\''.$controller->getSearchImdb($dados['cod'],$dados['title']).'\',\'_blank\');" class="btn btn-default btn-sm btn-outline-secondary">Imdb</button>
 									</form>
 								</div>
 								<small class="text-muted">'. $dados['time'] . '</small>

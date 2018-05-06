@@ -12,12 +12,26 @@
     <!-- Bootstrap core CSS -->
 		<link rel="stylesheet" type="text/css"  href="./css/stylezin.css">
 		<link rel="stylesheet" type="text/css"  href="./css/bootstrap.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 </head>
 
 <body>
 
+<div class="album py-1 bg-light">
+  <div class="container">
+    <div class="input-group stylish-input-group" >
+        <input id="input-search" type="text" class="form-control"  placeholder="Search" >
+        <span class="input-group-addon">
+            <button id="search-button" class="search-button" type="button">
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
+        </span>
+    </div>
+  </div>
+</div>
 <main role="main">
-	<div class="album py-5 bg-light">
+
+	<div class="album py-2 bg-light">
 	   <div class="container">
 	      <div class="row">	 </div>
 				<p id="loading">
@@ -29,7 +43,7 @@
 		 </div>
    </div>
 </main>
-
+<a id="back-to-top" href="#" style="background-color:#000000; border-color:#000000" class="btn btn-primary btn-sm back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
 <script src="./js/jquery.js"></script>
 <script src="./js/popper.js"></script>
 <script src="./js/bootstrap.js"></script>

@@ -18,18 +18,28 @@ Class MovieDao{
 		$this->conn = $db->getDBConnect();
 	}
 
-	public function getMovies($pagination){
+	public function getMovies($pagination, $search){
 
 		$pagination = ($pagination == 1 or $pagination == 0) ? 0 : $pagination - 1;
-		$sql = "select * from (SELECT cod, title, type, star, link, src, image, date_format(time, '%d/%m/%Y') time, view FROM movie where length(image) > 0 order by cod desc) x order by cod desc LIMIT ".($pagination * 12).", 12 " ;
+		if ($search == "" or trim($search) == "" or $search === null){
+			$sql = "select * from (SELECT cod, title, type, star, link, src, image, date_format(time, '%d/%m/%Y') time, view FROM movie where length(image) > 0 order by cod desc) x order by cod desc LIMIT ".($pagination * 12).", 12 " ;
+		}else {
+			$sql = "select * from (SELECT cod, title, type, star, link, src, image, date_format(time, '%d/%m/%Y') time, view FROM movie where upper(title) like '%".strtoupper(trim($search))."%' and length(image) > 0 order by cod desc) x order by cod desc LIMIT ".($pagination * 12).", 12 " ;
+		}
+		//echo $sql;
+
 		$this->movieList = $this->conn->query($sql);
 		return $this->movieList;
 
 	}
 
-	public function getQtMovies(){
+	public function getQtMovies($search){
+		if ($search == "" or trim($search) == "" or $search === null){
+			$sql = "select count(1) FROM movie where image is not null" ;
+		}else {
+			$sql = "select count(1) FROM movie where upper(title) like '%".strtoupper(trim($search))."%' and image is not null";
+		}
 
-		$sql = "select count(1) FROM movie where image is not null" ;
 		$this->qtMovies = $this->conn->query($sql);
 		return $this->qtMovies;
 

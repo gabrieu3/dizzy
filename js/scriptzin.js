@@ -7,16 +7,21 @@
 var qtdeMax = 0;
 qtPages();
 var pageNumber		= 1;
+var search	= "";
 
 /**
  * Function to paginate
  *
  */
 function loadDoc(pagination) {
-
 	  var url = 'src/view/list.php';
-	  var param = '?pagination='+pagination;
+	  var param = '?pagination='+pagination+'&search='+search;
 		var urlPagination = url + param;
+
+		if (pagination = 0){
+			$('.row').html("");
+			pageNumber		= 1;
+		}
 
 		$.ajax({
 			url: urlPagination,
@@ -33,6 +38,10 @@ function loadDoc(pagination) {
 				$('#info').show();
 		 },
 		});
+
+		if (pageNumber == qtdeMax){
+			$('#info').show();
+		}
 
 		$('#log').append("urlPagination " + urlPagination + "<br>");
     //$('#info').show();
@@ -54,6 +63,8 @@ function qtPages() {
 		$.ajax({
 			url: 'src/function/qtMoviesPage.php',
 			dataType: 'html',
+			method: "GET",
+			data: {"search": search},
 			success: function(html) {
 				qtdeMax =  parseInt(html);
 			},
@@ -95,6 +106,54 @@ $(document).ready(function() {
 	});
 });
 
+
+$(document).ready(function(){
+     $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+                $('#back-to-top').fadeIn();
+            } else {
+                $('#back-to-top').fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        $('#back-to-top').click(function () {
+            $('#back-to-top').tooltip('hide');
+            $('body,html').animate({
+                scrollTop: 0
+            }, 800);
+            return false;
+        });
+
+        $('#back-to-top').tooltip('show');
+
+});
+
+
+
+$(document).ready(function(){
+	$('#search-button').click(function () {
+		search = $('#input-search').val();
+		search = search.trim();
+		$('.row').html("");
+		pageNumber		= 1;
+		qtPages();
+		loadDoc(0);
+		return false;
+	});
+
+	$('#input-search').keypress(function (e) {
+	  if (e.which == 13) {
+			search = $('#input-search').val();
+			search = search.trim();
+			$('.row').html("");
+			pageNumber		= 1;
+			qtPages();
+			loadDoc(0);
+			return false;
+	  }
+	});
+
+});
 
 function openInNewTab(url) {
   var win = window.open(url, '_blank');

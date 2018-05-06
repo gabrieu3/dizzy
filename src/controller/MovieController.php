@@ -20,21 +20,23 @@ Class MovieController{
 	    return (ceil($number * $fig) / $fig);
 	}
 
-	public function getMovies($pagination){
-		return $this->dao->getMovies($pagination);
+	public function getMovies($pagination, $search){
+		return $this->dao->getMovies($pagination, $search);
 	}
 
-	public function getQtMovies(){
-		$qtMoviesResult = $this->dao->getQtMovies();
+	public function getQtMovies($search){
+		$qtMoviesResult = $this->dao->getQtMovies($search);
 		while ($qt = $qtMoviesResult->fetch_array()){
 			return $qt[0];
 		}
 		return 0;
 	}
 
-	public function getQtPages(){
-		return $this->round_up($this->getQtMovies() / 12,0);
+
+	public function getQtPages($search){
+		return $this->round_up($this->getQtMovies($search) / 12,0);
 	}
+
 
 	public function insertMovie($movie){
 		$this->dao->insertMovie($movie);
@@ -61,8 +63,8 @@ Class MovieController{
 	 $posAr[2] = (strpos($string,'/') != null) ? strpos($string,'/') : 1000 ;
 	 $posAr[3] = (strpos($string,'-') != null) ? strpos($string,'-') : 1000 ;
 	 $posAr[4] = (strpos($string,'–') != null) ? strpos($string,'–') : 1000 ;
-	 $posAr[4] = (strpos($string,'ª') != null) ? strpos($string,'ª')-2 : 1000 ;
-	 $posAr[5] = 30;
+	 $posAr[5] = (strpos($string,'ª') != null) ? strpos($string,'ª')-2 : 1000 ;
+	 $posAr[6] = 30;
 
 	 return min($posAr);
 
@@ -75,8 +77,8 @@ Class MovieController{
 	}
 
 	public function getSearchImdb($cod, $string){
-
-		return 'https://www.imdb.com/find?ref_=nv_sr_fn&q='. trim(substr($string,0, $this->getPositionTitle($string))).'&s=all';
+		
+		return 'https://m.imdb.com/find?q='. trim(substr($string,0, $this->getPositionTitle($string))).'&s=all';
 
 	}
 }
